@@ -88,7 +88,7 @@ public class ExpenseService {
     }
 
     @Transactional
-    public void delete(Long expenseId){
+    public void deleteExpense(Long expenseId){
         User user = getAuthenticatedUser();
 
         Expense expense = expenseRepo.findById(expenseId).orElseThrow(
