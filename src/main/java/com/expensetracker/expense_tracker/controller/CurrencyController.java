@@ -49,9 +49,12 @@ public class CurrencyController {
         )
     })
     public CurrencyConvertResponse convertCurrency(
-            @RequestParam Double amount,
-            @RequestParam String from,
-            @RequestParam String to) {
+            @RequestParam(required = true) Double amount,
+            @RequestParam(required = true) String from,
+            @RequestParam(required = true) String to) {
+        if (amount == null || from == null || to == null) {
+            throw new IllegalArgumentException("Amount, from, and to parameters are required");
+        }
         return currencyService.convertCurrency(amount, from, to);
     }
     

@@ -81,12 +81,17 @@ public class ExpenseService {
             throw new UnauthorizedException("You are not allowed to update this expense");
         }
 
+        if (req.getAmount() == null || req.getAmount() <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than 0");
+        }
+
         expense.setAmount(req.getAmount());
         expense.setCategory(req.getCategory());
         expense.setDescription(req.getDescription());
         expense.setDate(req.getDate());
 
-        return mapToResponse(expense);
+        Expense updatedExpense = expenseRepo.save(expense);
+        return mapToResponse(updatedExpense);
     }
 
     @Transactional
